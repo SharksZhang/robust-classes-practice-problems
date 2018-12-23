@@ -2,6 +2,8 @@ package test;
 
 import model.Kitchen;
 import model.Owner;
+import model.exceptions.NoIngredientException;
+import model.exceptions.NotEnoughMoneyException;
 import org.junit.Before;
 import org.junit.Test;
 
