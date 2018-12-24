@@ -5,48 +5,50 @@ import exceptions.GPATooLowException;
 import exceptions.MissingPrereqException;
 import exceptions.NoCoursesTakenException;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Transcript {
+public class    Transcript {
 
     private String name;
     private int year;
     private int id;
     private double gpa;
     private List<Course> currentCourses;
-    private List<Course> pastCourses;
+    private List<PastCourse> pastCourses;
 
     public Transcript(String studentName, int academicYear, int studentID) {
-        // TODO: complete the implementation of this method
+        this.name = studentName;
+        this.year = academicYear;
+        this.id = studentID;
+        this.currentCourses = new ArrayList<Course>();
+        this.pastCourses = new ArrayList<PastCourse>();
     }
 
     // getters
     public String getName() {
-        // TODO: complete the implementation of this method
-        return null;
+        return this.name;
     }
 
     public int getAcademicYear() {
-        // TODO: complete the implementation of this method
-        return 0;
+        return this.year;
     }
 
     public int getId() {
-        // TODO: complete the implementation of this method
-        return 0;
+        return this.id;
     }
 
     public List<Course> getCurrentCourses() {
-        // TODO: complete the implementation of this method
-        return null;
+        return currentCourses;
     }
 
-    public List<Course> getPastCourses() {
+    public List<PastCourse> getPastCourses() {
         // TODO: complete the implementation of this method
         // HINT: you may need to consider what kind of information a completed
         // course on a transcript needs to have that the Course class
         // doesn't already contains
-        return null;
+
+        return this.pastCourses;
     }
 
     // EFFECTS: computes cGPA

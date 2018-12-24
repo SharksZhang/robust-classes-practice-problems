@@ -4,6 +4,7 @@ import exceptions.GPATooLowException;
 import exceptions.MissingPrereqException;
 import exceptions.NoCoursesTakenException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Registrar {
@@ -12,17 +13,16 @@ public class Registrar {
     private List<Transcript> students;
 
     public Registrar(String name) {
-        // TODO: complete the implementation of this method
+        this.name = name;
+        students = new ArrayList<Transcript>();
     }
 
     // getters
     public String getName() {
-        // TODO: complete the implementation of this method
-        return null;
+        return name;
     }
     public List<Transcript> getStudents() {
-        // TODO: complete the implementation of this method
-        return null;
+        return students;
     }
 
     // MODIFIES: this
@@ -30,6 +30,10 @@ public class Registrar {
     //          Registrar's list. Remember to check if the student already exists in the list
     public boolean addStudent(Transcript stu) {
         // TODO: complete the implementation of this method
+        if (!students.contains(stu)){
+            students.add(stu);
+            return true;
+        }
         return false;
     }
 
@@ -38,7 +42,14 @@ public class Registrar {
     //          if the course is full throws CourseFullException
     public boolean registerStudent(Course c, Transcript tct) {
         // TODO: complete the implementation of this method
-        return false;
+        try {
+            tct.addCourse(c);
+            return true;
+        } catch (MissingPrereqException | CourseFullException e) {
+            e.printStackTrace();
+            System.out.println("register student failed");
+            return false;
+        }
     }
 
     // EFFECTS: promotes all students to their next year level.
@@ -46,6 +57,9 @@ public class Registrar {
     //          if no courses have been taken, throws a NoCoursesTaken exception
     public void promoteAllStudents() throws GPATooLowException, NoCoursesTakenException {
         // TODO: complete the implementation of this method
+        for (Transcript t: students){
+            t.promoteStudent();
+        }
     }
 
 
