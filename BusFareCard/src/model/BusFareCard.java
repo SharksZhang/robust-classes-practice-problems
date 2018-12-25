@@ -38,7 +38,14 @@ public class BusFareCard {
     //          otherwise subtract cost of the adult fare from the balance
     //          and set the fareLoaded field to true
     public void purchaseAdultFare() throws IllegalAgeException, NoBalanceException {
-        //TODO: complete the implementation of this method
+        if (this.ownerAge <= AGE_CUTOFF)
+            throw new IllegalAgeException();
+
+        if (this.balance - ADULT_FARE < 0){
+            throw new NoBalanceException();
+        }
+        this.balance -= ADULT_FARE;
+        fareLoaded = true;
     }
 
     // MODIFIES: this
@@ -47,21 +54,33 @@ public class BusFareCard {
     //          otherwise subtract cost of a concession fare from the balance
     //          and set the fareLoaded field to true
     public void purchaseConcessionTicket() throws IllegalAgeException, NoBalanceException {
-        //TODO: complete the implementation of this method
+        if (this.ownerAge > AGE_CUTOFF)
+            throw new IllegalAgeException();
+        if (this.balance - CONCESSION_FARE < 0){
+            throw new NoBalanceException();
+        }
+        this.balance -=  CONCESSION_FARE;
+        fareLoaded = true;
     }
 
     // MODIFIES: this
-    // EFFECTS: if amount < 0, throws IllegalAmountException
+    // EFFECTS: if amount <= 0, throws IllegalAmountException
     //          otherwise: loads the specified amount onto the card's balance field
     public void reloadBalance(double amount) throws IllegalAmountException {
-        //TODO: complete the implementation of this method
+        if (amount <= 0){
+            throw  new IllegalAmountException();
+        }
+        this.balance = this.balance + amount;
     }
 
     // MODIFIES: this
     // EFFECTS: if the fare is not loaded, throws MissingFareException
     //          otherwise, sets fareLoaded to false
     public void boardBus() throws MissingFareException {
-        //TODO: complete the implementation of this method
+        if (!isFareLoaded()){
+            throw new MissingFareException();
+        }
+        fareLoaded = false;
     }
 
 
