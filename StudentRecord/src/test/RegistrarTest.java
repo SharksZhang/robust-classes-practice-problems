@@ -1,5 +1,7 @@
 package test;
 
+import exceptions.GPATooLowException;
+import exceptions.NoCoursesTakenException;
 import model.Course;
 import model.Registrar;
 import model.Transcript;
@@ -43,7 +45,7 @@ public class RegistrarTest {
     }
 
     @Test
-    public void testpromoteAllStudents() {
+    public void testpromoteAllStudents() throws GPATooLowException, NoCoursesTakenException {
         testTct1.addToPastCourses(CPSC110);
         testTct2.addToPastCourses(CPSC121);
 
@@ -52,7 +54,7 @@ public class RegistrarTest {
 
         testReg.addStudent(testTct1);
         testReg.addStudent(testTct2);
-//        testReg.promoteAllStudents();
+        testReg.promoteAllStudents();
 
         assertEquals(testTct1.getAcademicYear(),2);
         assertEquals(testTct2.getAcademicYear(),4);

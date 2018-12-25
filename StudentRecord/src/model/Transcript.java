@@ -15,14 +15,18 @@ public class    Transcript {
     private int id;
     private double gpa;
     private List<Course> currentCourses;
-    private List<PastCourse> pastCourses;
+    private List<Course> pastCourses;
+
+    private double percentToGPA(double pcnt) {
+        return (pcnt / 20) - 1;
+    }
 
     public Transcript(String studentName, int academicYear, int studentID) {
         this.name = studentName;
         this.year = academicYear;
         this.id = studentID;
         this.currentCourses = new ArrayList<Course>();
-        this.pastCourses = new ArrayList<PastCourse>();
+        this.pastCourses = new ArrayList<Course>();
     }
 
     // getters
@@ -42,7 +46,7 @@ public class    Transcript {
         return currentCourses;
     }
 
-    public List<PastCourse> getPastCourses() {
+    public List<Course> getPastCourses() {
         // TODO: complete the implementation of this method
         // HINT: you may need to consider what kind of information a completed
         // course on a transcript needs to have that the Course class
@@ -60,7 +64,16 @@ public class    Transcript {
         //          **Do you need a helper method?**
         
         // TODO: complete the implementation of this method
-        return 0.0;
+        if (this.pastCourses.isEmpty()) {
+            throw new NoCoursesTakenException();
+        }
+        double totalPercentage = 0.0;
+        for (Course course : pastCourses){
+            totalPercentage += course.getGrade();
+        }
+
+
+        return percentToGPA(totalPercentage / pastCourses.size()) ;
     }
 
     // EFFECTS: promotes the student represented by the transcript
@@ -71,7 +84,20 @@ public class    Transcript {
     public boolean promoteStudent() throws GPATooLowException, NoCoursesTakenException {
         
         // TODO: complete the implementation of this method
-        return false;
+        // TODO: when return false
+        try {
+            double gpa = computeGPA();
+            if (gpa < 2.6){
+                throw new GPATooLowException();
+            }else {
+                year ++;
+                return true;
+            }
+
+        }catch (NoCoursesTakenException e){
+            return false;
+        }
+
     }
 
 
@@ -79,7 +105,10 @@ public class    Transcript {
     // EFFECTS: adds the given course to the list of past courses and returns true,
     //          unless pastCourses contains given course, then does not add and returns false
     public boolean addToPastCourses(Course c) {
-        //TODO: implement this method
+        if (!pastCourses.contains(c)){
+            pastCourses.add(c);
+            return true;
+        }
         return false;
     }
 
@@ -92,7 +121,19 @@ public class    Transcript {
         // You have to realize that there are a number of cases that your code needs to consider. What if the course
         // you wish to add has no prerequisites? What if the course you want to add is already full?
         // Careful consideration of these cases will lead to code that is correct
-        return false;
+        if(course.isCourseFull()){
+            throw new CourseFullException();
+        }
+
+        List<Course> prereqCourses = course.getPrereq();
+        for (Course preCourse : prereqCourses){
+            if (!pastCourses.contains(preCourse)){
+                throw new MissingPrereqException();
+            }
+        }
+        currentCourses.add(course);
+        course.addStudent();
+        return true;
     }
 
 
