@@ -47,10 +47,6 @@ public class    Transcript {
     }
 
     public List<Course> getPastCourses() {
-        // TODO: complete the implementation of this method
-        // HINT: you may need to consider what kind of information a completed
-        // course on a transcript needs to have that the Course class
-        // doesn't already contains
 
         return this.pastCourses;
     }
@@ -63,7 +59,6 @@ public class    Transcript {
         //          GPA (4.0 scale) = (total percentage/20) - 1
         //          **Do you need a helper method?**
         
-        // TODO: complete the implementation of this method
         if (this.pastCourses.isEmpty()) {
             throw new NoCoursesTakenException();
         }
@@ -82,9 +77,7 @@ public class    Transcript {
     //          if GPA is not over 2.6 on a 4.0 scale, throws GPATooLowException
     //          if no courses have been taken, throws NoCoursesTakenException
     public boolean promoteStudent() throws GPATooLowException, NoCoursesTakenException {
-        
-        // TODO: complete the implementation of this method
-        // TODO: when return false
+
         try {
             double gpa = computeGPA();
             if (gpa < 2.6){
@@ -117,7 +110,6 @@ public class    Transcript {
     //          if the transcript is missing prerequisites, throws a MissingPrereqException
     //          if the course has no space for more students to register, throws a CourseFullException
     public boolean addCourse(Course course) throws MissingPrereqException, CourseFullException {
-        // TODO: implement this method.
         // You have to realize that there are a number of cases that your code needs to consider. What if the course
         // you wish to add has no prerequisites? What if the course you want to add is already full?
         // Careful consideration of these cases will lead to code that is correct
