@@ -16,20 +16,16 @@ public class MovieGoer {
 
     // getters
     public String getName() {
-        // TODO: complete the implementation of this method
-        return null;
+        return name;
     }
     public int getAge() {
-        // TODO: complete the implementation of this method
-        return 0;
+        return age;
     }
     public TicketKiosk getTicketKiosk() {
-        // TODO: complete the implementation of this method
-        return null;
+        return tk;
     }
     public Ticket getTicket() {
-        // TODO: complete the implementation of this method
-        return null;
+        return ticket;
     }
 
     // REQUIRES: the movie (m) must not be at full capacity, i.e. more people can watch the movie
@@ -38,6 +34,9 @@ public class MovieGoer {
     // EFFECTS: a new ticket associated with the given movie is created, and
     //           becomes this MovieGoer's ticket
     public void buyTicket(Movie m) {
+        if (m.isFull()){
+            throw
+        }
         // TODO: complete the implementation of this method
     }
 
