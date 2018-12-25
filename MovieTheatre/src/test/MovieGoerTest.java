@@ -5,6 +5,8 @@ import model.MovieGoer;
 import model.Ticket;
 import model.TicketKiosk;
 
+import model.exceptions.ShowingFullException;
+import model.exceptions.UnderAgeException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,23 +43,41 @@ public class MovieGoerTest {
     @Test
     public void testBuyTicketNoUnderAgeException() {
        // TODO: implement this test method where you do NOT expect the buyTicket() method to throw UnderAgeException
+        try {
+            mg1.buyTicket(m1);
+        } catch (Exception e) {
+            fail();
+        }
+
     }
 
-    @Test
-    public void testBuyTicketUnderAgeException() {
+    @Test(expected = UnderAgeException.class)
+    public void testBuyTicketUnderAgeException() throws ShowingFullException, UnderAgeException {
         // TODO: implement this test method where you DO expect the buyTicket() method to throw UnderAgeException
+        mg2.buyTicket(m1);
+
     }
 
 
     @Test
     public void testBuyTicketNoShowingFullException() {
         // TODO: implement this test method where you do NOT expect the buyTicket() method to throw ShowingFullException
+        try {
+            mg1.buyTicket(m1);
+        } catch (Exception e) {
+            fail();
+        }
+
     }
 
-    @Test
-    public void testBuyTicketShowingFullException() {
+    @Test(expected = ShowingFullException.class)
+    public void testBuyTicketShowingFullException() throws ShowingFullException, UnderAgeException {
         // TODO: implement this test method where you DO expect the buyTicket() method to throw ShowingFullException
 
+        for (int i =0; i <50; i ++){
+            mg1.buyTicket(m1);
+        }
+        mg1.buyTicket(m1);
     }
 
 
